@@ -1,8 +1,8 @@
 import express from "express";
 
-const app = express();
+import { PORT } from "./config/env.js";
 
-const PORT = process.env.PORT || 3000;
+const app = express();
 
 app.get("/", (req, res) => {
 	res.send("Welcome ot the Subscription Tracker API");
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(
-		"Subscription Tracker API is running on http://localhost:3000 "
+		`Subscription Tracker API is running on http://localhost:${PORT}`
 	);
 });
 
