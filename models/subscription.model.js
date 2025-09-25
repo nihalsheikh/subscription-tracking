@@ -25,8 +25,6 @@ const subscriptionSchema = new mongoose.Schema(
 				"daily",
 				"weekly",
 				"monthly",
-				"quarterly",
-				"halfYearly",
 				"yearly",
 			],
 		},
@@ -96,8 +94,6 @@ subscriptionSchema.pre("save", function (next) {
 			daily: 1,
 			weekly: 7,
 			monthly: 30,
-			quarterly: 120,
-			halfYearly: 182,
 			yearly: 365,
 		};
 
