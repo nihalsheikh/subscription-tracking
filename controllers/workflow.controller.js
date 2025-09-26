@@ -8,12 +8,24 @@ const { serve } = require("@upstash/workflow/express");
 const REMINDERS = [7, 5, 2, 1];
 
 export const sendReminders = serve(async (context) => {
+	// console.log("🚀 Workflow started with payload:", context.requestPayload);
+
 	const { subscriptionId } = context.requestPayload;
+
+	// console.log("📝 Processing subscription ID:", subscriptionId);
+
 	const subscription = await fetchSubscription(context, subscriptionId);
 
-	if (!subscription || subscription.status !== "active") return;
+	// console.log("💾 Found subscription:", subscription);
+
+	if (!subscription || subscription.status !== "active") {
+		// console.log("❌ Subscription not active, stopping workflow");
+		return;
+	}
 
 	const renewalDate = dayjs(subscription.renewalDate);
+
+	// console.log("📅 Renewal date:", renewalDate.format());
 
 	if (renewalDate.isBefore(dayjs())) {
 		console.log(
@@ -33,7 +45,7 @@ export const sendReminders = serve(async (context) => {
 			);
 		}
 
-		await triggerReminder(context, `Reminder ${daysBefore} days before`)
+		await triggerReminder(context, `Reminder ${daysBefore} days before`);
 	}
 });
 
@@ -55,6 +67,6 @@ const triggerReminder = async (context, label) => {
 	return await context.run(label, () => {
 		console.log(`Triggering ${label} reminder`);
 
-		// later send email, sms, whatsapp chat msg, push notification...
+		// Send email, sms, whatsapp chat msg, push notification...
 	});
 };
