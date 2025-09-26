@@ -7,6 +7,7 @@ import {
 
 const subscriptionRouter = Router();
 
+// Get all subscriptions
 subscriptionRouter.get("/", authorize, (req, res) =>
 	res.send({ title: "GET all subscriptions" })
 );
